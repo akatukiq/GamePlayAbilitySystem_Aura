@@ -3,6 +3,8 @@
 
 #include "AbilitySystem/AuraAttributeSet.h"
 #include "AbilitySystemComponent.h"
+#include "AbilitySystemBlueprintLibrary.h"
+#include "GameplayEffectExtension.h"
 #include "Net/UnrealNetwork.h"
 
 UAuraAttributeSet::UAuraAttributeSet()
@@ -34,6 +36,29 @@ void UAuraAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, 
 	if (Attribute == GetManaAttribute())
 	{
 		NewValue = FMath::Clamp(NewValue, 0.F, GetMaxMana());
+	}
+}
+
+void UAuraAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
+{
+	Super::PostGameplayEffectExecute(Data);
+
+	// Sourde = couser of the efect, Target = target of the effect (owner of this AS)
+
+	const FGameplayEffectContextHandle EffetContextHandle = Data.EffectSpec.GetContext();
+	const UAbilitySystemComponent* SourceASC = EffetContextHandle.GetOriginalInstigatorAbilitySystemComponent();
+
+	if (IsValid(SourceASC) && SourceASC->AbilityActorInfo.IsValid() && SourceASC->AbilityActorInfo->AvatarActor.IsValid())
+	{
+		AActor* SourceAvaterActor = SourceASC->AbilityActorInfo->AvatarActor.Get();
+		APlayerController* SourceController = SourceASC->AbilityActorInfo->PlayerController.Get();
+		if (SourceController == nullptr && SourceAvaterActor != nullptr)
+		{
+			if (const APawn* Pawn = Cast<APawn>(SourceAvaterActor))
+			{
+				SourceController = Pawn->GetController();
+			}
+		}
 	}
 }
 
