@@ -19,5 +19,5 @@ public:
 	virtual void PossessedBy(AController* NewContoroller) override;
 	virtual void OnRep_PlayerState() override;
 private:
-	void InitAbiilityActorinfo();
+	virtual void InitAbiilityActorinfo() override;
 };
