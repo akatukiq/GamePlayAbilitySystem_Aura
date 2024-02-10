@@ -1,9 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "AbilitySystem/Data/Attributeinfo.h"
+#include "AbilitySystem/Data/AttributeInfo.h"
 
-FAuraAttributeInfo UAttributeinfo::FindAttributeInfoForTag(const FGameplayTag& AttributeTag, bool bLogNotFound)
+FAuraAttributeInfo UAttributeInfo::FindAttributeInfoForTag(const FGameplayTag& AttributeTag, bool bLogNotFound)
 {
 	for (const FAuraAttributeInfo& Info : AttributeInfomation)
 	{
