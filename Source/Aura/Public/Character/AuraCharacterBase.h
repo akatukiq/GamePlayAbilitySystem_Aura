@@ -64,6 +64,19 @@ protected:
 
 	void AddCharacterAbilities();
 
+	/* Dissolve Material*/
+
+	void Dissolve();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void StartDissolveTimeline(UMaterialInstance* DynamicMaterialInstance);
+
+	UPROPERTY(EditAnyWhere, BlueprintReadOnly)
+	TObjectPtr<UMaterialInstance> DissoleveMaterialInstance;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadOnly)
+		TObjectPtr<UMaterialInstance> WeaponDissoleveMaterialInstance;
+
 private:
 
 	UPROPERTY(EditAnywhere, Category = "Abilities")

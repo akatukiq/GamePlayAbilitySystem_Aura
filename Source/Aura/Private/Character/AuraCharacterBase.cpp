@@ -96,4 +96,3 @@ void AAuraCharacterBase::AddCharacterAbilities()
 	AuraASC->AddCharacterAbilities(StartAbilities);
 
 }
-
