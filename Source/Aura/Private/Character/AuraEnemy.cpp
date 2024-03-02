@@ -89,7 +89,7 @@ void AAuraEnemy::BeginPlay()
 	InitAbiilityActorinfo();
 	if(HasAuthority())
 	{
-		UAuraAbilitySystemLibrary::GiveStartupAbility(this, AbilitySystemComponent);
+		UAuraAbilitySystemLibrary::GiveStartupAbility(this, AbilitySystemComponent, CharacterClass);
 	}
 
 
