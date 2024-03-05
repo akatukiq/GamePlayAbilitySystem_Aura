@@ -7,6 +7,8 @@
 #include "GameplayTagContainer.h"
 #include "CombatInterface.generated.h"
 
+class UNiagaraSystem;
+class UAnimMontage;
 
 USTRUCT(BlueprintType)
 struct  FTaggedMontage
@@ -59,4 +61,7 @@ public:
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	TArray<FTaggedMontage> GetAttackMontages();
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	UNiagaraSystem* GetBloodEffect();
 };
