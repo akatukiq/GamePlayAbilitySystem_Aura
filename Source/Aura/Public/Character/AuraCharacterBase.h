@@ -101,6 +101,10 @@ protected:
 	UPROPERTY(EditAnyWhere, BlueprintReadOnly)
 	UNiagaraSystem* BloodEffect;
 
+	UPROPERTY(EditAnyWhere, BlueprintReadOnly)
+	USoundBase* DeathSound;
+
+
 private:
 
 	UPROPERTY(EditAnywhere, Category = "Abilities")
