@@ -51,6 +51,8 @@ public:
 	FGameplayTag Damage_Physical;
 
 	FGameplayTag Abilities_Attack;
+	FGameplayTag Abilities_Summon;
+
 
 	FGameplayTag CombatSocket_Weapon;
 	FGameplayTag CombatSocket_RightHand;
@@ -65,7 +67,6 @@ public:
 	TMap<FGameplayTag, FGameplayTag> DamageTypesToResistances;
 
 	FGameplayTag Effects_HitReact;
-
 
 protected:
 
