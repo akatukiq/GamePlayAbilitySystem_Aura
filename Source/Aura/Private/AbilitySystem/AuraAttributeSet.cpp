@@ -236,7 +236,7 @@ void UAuraAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
 				IPlayerInterface::Execute_LevelUp(Props.SourceCharacter);
 			}
 
-				IPlayerInterface::Execute_AddToXP(Props.SourceCharacter, LocalIncomingXP);			
+			IPlayerInterface::Execute_AddToXP(Props.SourceCharacter, LocalIncomingXP);			
 		}
 	}
 }
