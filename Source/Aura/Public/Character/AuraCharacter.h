@@ -22,10 +22,11 @@ public:
 
 	/* Players interface */
 	virtual void AddToXP_Implementation(int32 InXP) override;
+	virtual void LevelUp_Implementation()override;
 
 	/* combat interface */
 
-	virtual int32 GetPlayerLevel();
+	virtual int32 GetPlayerLevel_Implementation() override;
 
 	/* end combat interface */
 
