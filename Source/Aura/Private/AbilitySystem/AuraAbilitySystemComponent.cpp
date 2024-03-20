@@ -128,7 +128,7 @@ FGameplayTag UAuraAbilitySystemComponent::GetStatusFromSpec(const FGameplayAbili
 {
 	for (FGameplayTag StatusTag : AbilitySpec.DynamicAbilityTags)
 	{
-		if (StatusTag.MatchesTag(FGameplayTag::RequestGameplayTag(FName("Ability.Status"))))
+		if (StatusTag.MatchesTag(FGameplayTag::RequestGameplayTag(FName("Abilities.Status"))))
 		{
 			return StatusTag;
 		}
