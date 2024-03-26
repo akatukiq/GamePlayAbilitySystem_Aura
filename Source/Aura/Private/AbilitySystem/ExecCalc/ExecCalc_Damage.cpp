@@ -105,6 +105,21 @@ void UExecCalc_Damage::Execute_Implementation(const FGameplayEffectCustomExecuti
 	EvalutionParameters.SourceTags = SourceTags;
 	EvalutionParameters.TargetTags = TargetTags;
 
+	//Debuff
+	const FAuraGameplayTags GameplayTags = FAuraGameplayTags::Get();
+
+	for (TTuple<FGameplayTag, FGameplayTag> Pair : GameplayTags.DamageTypesToDebuffs)
+	{
+		const FGameplayTag& DamageType = Pair.Key;
+		const FGameplayTag& DebuffType = Pair.Value;
+		const float TypeDamage = Spec.GetSetByCallerMagnitude(Pair.Key, false, -1.f);
+		if (TypeDamage > -.5f)//.5 padding for floating point [im]Precision
+		{
+			// Destermine if there was a successful debuff
+			const float SourceDebuffChance = Spec.GetSetByCallerMagnitude(GameplayTags.Debuff_Chance, false, 1.f);
+		}
+	}
+
 	//Get Damage Set by caller Magnitude
 	float Damage = 0.f;
 	for (const TTuple<FGameplayTag, FGameplayTag>& Pair : FAuraGameplayTags::Get().DamageTypesToResistances)
