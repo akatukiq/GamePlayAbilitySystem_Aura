@@ -89,6 +89,19 @@ protected:
 	UPROPERTY()
 	bool bIsCriticalHit = false;
 
+	UPROPERTY()
+	bool bIsSuccessfulDebuff = false;
+
+	UPROPERTY()
+	float DebuffDamage = 0.f;
+
+	UPROPERTY()
+	float DebuffDuration = 0.f;
+
+	UPROPERTY()
+	float DebuffFrequency = 0.f;
+
+	TSharedPtr<FGameplayTag> DamageType;
 };
 
 template<>
