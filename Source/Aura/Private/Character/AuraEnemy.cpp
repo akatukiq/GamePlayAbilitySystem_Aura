@@ -62,10 +62,10 @@ void AAuraEnemy::UnHighlightActor()
 	Weapon->SetRenderCustomDepth(false);
 }
 
-void AAuraEnemy::Die()
+void AAuraEnemy::Die(const FVector& DeathImpulse)
 {
 	SetLifeSpan(5.f);
-	Super::Die();
+	Super::Die(DeathImpulse);
 	if (AuraAIController) AuraAIController->GetBlackboardComponent()->SetValueAsBool(FName("Dead"), true);
 
 }
