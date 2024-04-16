@@ -137,12 +137,6 @@ protected:
 	FVector DeathImpulse = FVector::ZeroVector;
 
 	UPROPERTY()
-	float KnockbackForceMagnitude = 0.f;
-
-	UPROPERTY()
-	float KnockbackChance = 0.f;
-
-	UPROPERTY()
 	FVector KnockbackForce = FVector::ZeroVector;
 };
 
