@@ -150,11 +150,6 @@ FOnASCRegistered AAuraCharacterBase::GetOnASCRegisteredDelegate()
 	return OnAscRegistered;
 }
 
-FOnDeath AAuraCharacterBase::GetOnDeathDelegate()
-{
-	return OnDeath;
-}
-
 void AAuraCharacterBase::InitAbiilityActorinfo()
 {
 }
