@@ -98,9 +98,9 @@ public:
 	USkeletalMeshComponent* GetWeapon();
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
-	bool IsBeginShockLoop() const;
+	bool IsBeingShocked() const;
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
-	void SetIsBeginShockLoop(bool bInShock);
+	void SetIsBeingShocked(bool bInShock);
 
 };

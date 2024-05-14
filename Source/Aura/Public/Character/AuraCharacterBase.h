@@ -43,8 +43,8 @@ public:
 	virtual ECharacterClass GetCharacterClass_Implementation() override;
 	virtual FOnASCRegistered& GetOnASCRegisteredDelegate() override;
 	virtual USkeletalMeshComponent* GetWeapon_Implementation() override;
-	virtual void SetIsBeginShockLoop_Implementation(bool bInShock) override;
-	virtual bool IsBeginShockLoop_Implementation() const override;
+	virtual void SetIsBeingShocked_Implementation(bool bInShock) override;
+	virtual bool IsBeingShocked_Implementation() const override;
 	/* End Combat Interface */
 
 	FOnASCRegistered OnAscRegistered;
@@ -63,7 +63,7 @@ public:
 	bool bIsBurned = false;
 
 	UPROPERTY(Replicated, BlueprintReadOnly)
-	bool bIsBeginShocked = false;
+	bool bIsBeingShocked = false;
 
 	UFUNCTION()
 	virtual void OnRep_Stunned();
