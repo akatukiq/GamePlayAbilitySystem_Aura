@@ -86,7 +86,7 @@ public:
 	static FVector GetKnockbackForce(const FGameplayEffectContextHandle& EffectContextHandle);
 
 	UFUNCTION(BlueprintPure, Category = "AuraAbilitySystemLibrary|GameplayEffects")
-	static bool GetIsRadialDamage(const FGameplayEffectContextHandle& EffectContextHandle);
+	static bool IsRadialDamage(const FGameplayEffectContextHandle& EffectContextHandle);
 
 	UFUNCTION(BlueprintPure, Category = "AuraAbilitySystemLibrary|GameplayEffects")
 	static float GetRadialDamageInnerRadius(const FGameplayEffectContextHandle& EffectContextHandle);
