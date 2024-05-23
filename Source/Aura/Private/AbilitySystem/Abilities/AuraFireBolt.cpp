@@ -44,7 +44,7 @@ FString UAuraFireBolt::GetDescription(int32 Level)
 	{
 		return FString::Printf(TEXT(
 			//Title
-			"<Title>FIRE BOLT</>\n\n"
+			"<Title>NEXT LEVEL:</>\n\n"
 
 			//Levels
 			"<Small>Level: </><Level> %d </>\n"

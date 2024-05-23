@@ -48,5 +48,5 @@ protected:
 	TObjectPtr<ACharacter> OwnerCharacter;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Beam")
-	int32 MaxNumShockTarget = 5;
+	int32 MaxNumShockTargets = 5;
 };
