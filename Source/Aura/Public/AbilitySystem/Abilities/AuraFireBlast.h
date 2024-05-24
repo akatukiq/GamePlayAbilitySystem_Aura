@@ -6,6 +6,7 @@
 #include "AbilitySystem/Abilities/AuraDamageGameplayAbility.h"
 #include "AuraFireBlast.generated.h"
 
+class AAuraFireBall;
 /**
  * 
  */
@@ -21,4 +22,8 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = "FireBlast")
 		int32 NumFireBalls = 12;
+
+private:
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<AAuraFireBall> FireBallClass;
 };
