@@ -31,6 +31,7 @@ class UAuraAbilitySystemComponent;
 
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAttributeChangeSignature, float, NewValue);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnLevelChangedSignature, int32, NewLevel, bool, bLevelUp);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMessageWidgetChangeSignature, FUIWidgetRow, Row);
 
 
@@ -68,7 +69,7 @@ public:
 	FOnAttributeChangeSignature OnXPPercentChangedDelegate;
 
 	UPROPERTY(BlueprintAssignable, Category = "GAS|Level")
-	FOnAttributeChangeSignature OnPlayerLevelChangedDelegate;
+	FOnLevelChangedSignature OnPlayerLevelChangedDelegate;
 
 protected:
 
