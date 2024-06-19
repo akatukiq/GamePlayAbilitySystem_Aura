@@ -18,7 +18,7 @@ enum ESaveSlotStatus
 };
 
 USTRUCT()
-struct FSaveActor
+struct FSavedActor
 {
 	GENERATED_BODY()
 
@@ -33,13 +33,13 @@ struct FSaveActor
 	TArray<uint8> Bytes;
 };
 
-inline bool operator==(const FSaveActor& Left, const FSaveActor& Right)
+inline bool operator==(const FSavedActor& Left, const FSavedActor& Right)
 {
 	return Left.ActorName == Right.ActorName;
 }
 
 USTRUCT()
-struct FSaveMap
+struct FSavedMap
 {
 	GENERATED_BODY()
 
@@ -47,7 +47,7 @@ struct FSaveMap
 	FString MapAssetName = FString();
 
 	UPROPERTY()
-	TArray<FSaveActor> SaveActors;
+	TArray<FSavedActor> SaveActors;
 
 
 };
@@ -146,8 +146,8 @@ public:
 	TArray<FSavedAbility> SavedAbilities;
 
 	UPROPERTY()
-	TArray<FSaveMap> SaveMaps;
+	TArray<FSavedMap> SavedMaps;
 
-	FSaveMap GetSavedMapWithMapName(const FString& InMapName);
+	FSavedMap GetSavedMapWithMapName(const FString& InMapName);
 	bool HasMap(const FString& InMapName);
 };

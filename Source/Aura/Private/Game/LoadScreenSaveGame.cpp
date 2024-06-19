@@ -3,21 +3,21 @@
 
 #include "Game/LoadScreenSaveGame.h"
 
-FSaveMap ULoadScreenSaveGame::GetSavedMapWithMapName(const FString& InMapName)
+FSavedMap ULoadScreenSaveGame::GetSavedMapWithMapName(const FString& InMapName)
 {
-	for (const FSaveMap& Map : SaveMaps)
+	for (const FSavedMap& Map : SavedMaps)
 	{
 		if (Map.MapAssetName == InMapName)
 		{
 			return Map;
 		}
 	}
-	return FSaveMap();
+	return FSavedMap();
 }
 
 bool ULoadScreenSaveGame::HasMap(const FString& InMapName)
 {
-	for (const FSaveMap& Map : SaveMaps)
+	for (const FSavedMap& Map : SavedMaps)
 	{
 		if (Map.MapAssetName == InMapName)
 		{
