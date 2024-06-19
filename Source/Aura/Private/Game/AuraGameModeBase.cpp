@@ -90,7 +90,7 @@ void AAuraGameModeBase::SaveWorldState(UWorld* World)
 			SaveGame->SavedMaps.Add(NewSavedMap);
 		}
 
-
+		//
 	}
 }
 
