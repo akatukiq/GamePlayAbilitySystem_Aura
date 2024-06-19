@@ -47,7 +47,7 @@ struct FSavedMap
 	FString MapAssetName = FString();
 
 	UPROPERTY()
-	TArray<FSavedActor> SaveActors;
+	TArray<FSavedActor> SavedActors;
 
 
 };
