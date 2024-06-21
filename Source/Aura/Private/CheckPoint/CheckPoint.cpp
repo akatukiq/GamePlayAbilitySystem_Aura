@@ -34,7 +34,7 @@ ACheckPoint::ACheckPoint(const FObjectInitializer& ObjectInitializer)
 
 void ACheckPoint::LoadActor_Implementation()
 {
-	if (bReachd)
+	if (bReached)
 	{
 		HandleGlowEffects();
 	}
@@ -44,7 +44,7 @@ void ACheckPoint::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AAct
 {
 	if (OtherActor->Implements<UPlayerInterface>())
 	{
-		bReachd = true;
+		bReached = true;
 
 		if (AAuraGameModeBase* AuraGM = Cast<AAuraGameModeBase>(UGameplayStatics::GetGameMode(this)))
 		{
@@ -74,7 +74,7 @@ void ACheckPoint::SetMoveToLocation_Implementation(FVector& OutDistination)
 
 void ACheckPoint::HighlightActor_Implementation()
 {
-	if (!bReachd)
+	if (!bReached)
 	{
 		CheckpointMesh->SetRenderCustomDepth(true);
 	}

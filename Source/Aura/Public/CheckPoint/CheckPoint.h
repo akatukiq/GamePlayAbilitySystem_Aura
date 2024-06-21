@@ -28,7 +28,8 @@ public:
 
 
 	UPROPERTY(BlueprintReadWrite, SaveGame)
-	bool bReachd = false;
+	bool bReached = false;
+
 
 	UPROPERTY(EditAnywhere)
 	bool bBindOverlapCallback = true;
@@ -59,7 +60,7 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TObjectPtr<UStaticMeshComponent> CheckpointMesh;
-private:
+
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<USphereComponent> Sphere;
 };
