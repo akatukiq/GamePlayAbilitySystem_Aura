@@ -72,10 +72,10 @@ void AAuraEnemy::SetMoveToLocation_Implementation(FVector& OutDestination)
 
 void AAuraEnemy::Die(const FVector& DeathImpulse)
 {
-	SetLifeSpan(5.f);
-	Super::Die(DeathImpulse);
+	SetLifeSpan(LifeSpan);
 	if (AuraAIController) AuraAIController->GetBlackboardComponent()->SetValueAsBool(FName("Dead"), true);
-
+	SpawnLoot();
+	Super::Die(DeathImpulse);
 }
 
 void AAuraEnemy::SetCombatTarget_Implementation(AActor* InCombatTarget)
