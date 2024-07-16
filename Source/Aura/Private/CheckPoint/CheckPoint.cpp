@@ -62,7 +62,7 @@ void ACheckPoint::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AAct
 
 void ACheckPoint::BeginPlay()
 {
-	Super::ReceiveBeginPlay();
+	Super::BeginPlay();
 
 	if (bBindOverlapCallback)
 	{
