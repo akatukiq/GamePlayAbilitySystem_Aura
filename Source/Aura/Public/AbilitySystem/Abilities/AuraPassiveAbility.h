@@ -17,4 +17,12 @@ public:
 	virtual void ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData) override;
 
 	void ReceiveDeactivate(const FGameplayTag& AbilityTag);
+
+
+	UFUNCTION(BlueprintPure)
+	float GetPassiveValueAtLevel() const;
+
+protected:
+	UPROPERTY(EditDefaultsOnly, Category = "PassiveValue")
+	FScalableFloat PassiveValue;
 };

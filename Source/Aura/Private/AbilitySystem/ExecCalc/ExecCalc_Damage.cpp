@@ -7,6 +7,7 @@
 #include "AuraGameplayTags.h"
 #include "AbilitySystem/AuraAbilitySystemLibrary.h"
 #include "AbilitySystem/AuraAttributeSet.h"
+#include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "AbilitySystem/Data/CharacterClassInfo.h"
 #include "Interaction/CombatInterface.h"
 #include "Kismet/GameplayStatics.h"
@@ -221,6 +222,14 @@ void UExecCalc_Damage::Execute_Implementation(const FGameplayEffectCustomExecuti
 
 	// Double damage plus a bonus if critical hit
 	Damage = bCriticalHit ? 2.f * Damage + SourceCriticalHitDamage : Damage;
+
+	// Passive Test
+	if (UAuraAbilitySystemComponent* TargetAuraASC = Cast<UAuraAbilitySystemComponent>(TargetASC))
+	{
+		TargetAuraASC->GetSpecFromAbilityTag(FAuraGameplayTags::Get().Abilities_Passive_HaloOfProtection);
+	}
+	//
+
 
 	// Passive Spell Halo of Protection
 	if (TargetASC->HasMatchingGameplayTag(FAuraGameplayTags::Get().Abilities_Passive_HaloOfProtection))

@@ -23,3 +23,9 @@ void UAuraPassiveAbility::ReceiveDeactivate(const FGameplayTag& AbilityTag)
 		EndAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true, true);
 	}
 }
+
+float UAuraPassiveAbility::GetPassiveValueAtLevel() const
+{
+	return PassiveValue.GetValueAtLevel(GetAbilityLevel());
+}
+
