@@ -198,7 +198,6 @@ void UExecCalc_Damage::Execute_Implementation(const FGameplayEffectCustomExecuti
 	// Armor ignores a percentage of incoming Damage.
 	Damage *= (100 - EffectiveArmor * EffectiveArmorConfficient) / 100.f;
 
-
 	float SourceCriticalHitChance = 0.f;
 	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(DamageStatics().CriticalHitChanceDef, EvaluationParameters, SourceCriticalHitChance);
 	SourceCriticalHitChance = FMath::Max<float>(SourceCriticalHitChance, 0.f);
@@ -222,6 +221,12 @@ void UExecCalc_Damage::Execute_Implementation(const FGameplayEffectCustomExecuti
 
 	// Double damage plus a bonus if critical hit
 	Damage = bCriticalHit ? 2.f * Damage + SourceCriticalHitDamage : Damage;
+
+	// Passive Spell Halo of Protection
+	if (TargetASC->HasMatchingGameplayTag(FAuraGameplayTags::Get().Abilities_Passive_HaloOfProtection))
+	{
+		Damage *= 0.8f;
+	}
 
 	const FGameplayModifierEvaluatedData EvaluatedData(UAuraAttributeSet::GetIncomingDamageAttribute(), EGameplayModOp::Additive, Damage);
 	OutExecutionOutput.AddOutputModifier(EvaluatedData);
