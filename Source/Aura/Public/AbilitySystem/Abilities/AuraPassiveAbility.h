@@ -20,7 +20,7 @@ public:
 
 
 	UFUNCTION(BlueprintPure)
-	float GetPassiveValueAtLevel() const;
+	float GetPassiveValueAtLevel(int32 Level) const;
 
 protected:
 	UPROPERTY(EditDefaultsOnly, Category = "PassiveValue")

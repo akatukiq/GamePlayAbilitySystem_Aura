@@ -8,6 +8,7 @@
 #include "AbilitySystem/AuraAbilitySystemLibrary.h"
 #include "AbilitySystem/AuraAttributeSet.h"
 #include "AbilitySystem/AuraAbilitySystemComponent.h"
+#include "Abilities/GameplayAbility.h"
 #include "AbilitySystem/Abilities/AuraPassiveAbility.h"
 #include "AbilitySystem/Data/CharacterClassInfo.h"
 #include "Interaction/CombatInterface.h"
@@ -83,7 +84,7 @@ void UExecCalc_Damage::Execute_Implementation(const FGameplayEffectCustomExecuti
 	TagsToCaptureDefs.Add(Tags.Attributes_Resistance_Lightning, DamageStatics().LightningResistanceDef);
 	TagsToCaptureDefs.Add(Tags.Attributes_Resistance_Physical, DamageStatics().PhysicalResistanceDef);
 
-	const UAbilitySystemComponent* SourceASC = ExecutionParams.GetSourceAbilitySystemComponent();
+	UAbilitySystemComponent* SourceASC = ExecutionParams.GetSourceAbilitySystemComponent();
 	UAbilitySystemComponent* TargetASC = ExecutionParams.GetTargetAbilitySystemComponent();
 
 	AActor* SourceAvatar = SourceASC ? SourceASC->GetAvatarActor() : nullptr;
@@ -226,14 +227,16 @@ void UExecCalc_Damage::Execute_Implementation(const FGameplayEffectCustomExecuti
 
 	// Passive Spell Halo of Protection
 	if (UAuraAbilitySystemComponent* TargetAuraASC = Cast<UAuraAbilitySystemComponent>(TargetASC))
+
 	{
 		if (TargetASC->HasMatchingGameplayTag(FAuraGameplayTags::Get().Abilities_Passive_HaloOfProtection))
 		{
 			FGameplayAbilitySpec* TargetAbilitySpec = TargetAuraASC->GetSpecFromAbilityTag(FAuraGameplayTags::Get().Abilities_Passive_HaloOfProtection);
+			
 			if (UAuraPassiveAbility* AuraPassiveAbility = Cast<UAuraPassiveAbility>(TargetAbilitySpec->Ability))
 			{
-				float AbilityLevel = AuraPassiveAbility->GetAbilityLevel();
-				float PassiveValue = AuraPassiveAbility->GetPassiveValueAtLevel();
+				int32 TargetAbilityLevel = TargetAbilitySpec->Level;
+				float PassiveValue = AuraPassiveAbility->GetPassiveValueAtLevel(TargetAbilityLevel);
 
 				Damage -= Damage * PassiveValue;
 

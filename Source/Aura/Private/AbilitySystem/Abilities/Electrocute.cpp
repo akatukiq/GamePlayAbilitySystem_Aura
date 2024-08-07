@@ -26,7 +26,7 @@ FString UElectrocute::GetDescription(int32 Level)
 			"connecting with the target, repeatedly causing </>"
 
 			//Damage
-			"<Damage>%d</><Default> lightning damage with"
+			"<Damage>%2.f</><Default> lightning damage with"
 			" a chance to stun</>"),
 
 			//Values
@@ -53,7 +53,7 @@ FString UElectrocute::GetDescription(int32 Level)
 			"propagating to %d additional targets nearby, causing </>"
 
 			// Damage
-			"<Damage>%d</><Default> lightning damage with"
+			"<Damage>%2.f</><Default> lightning damage with"
 			" a chance to stun</>"),
 
 			// Values
@@ -68,7 +68,7 @@ FString UElectrocute::GetDescription(int32 Level)
 
 FString UElectrocute::GetNextLevelDescription(int32 Level)
 {
-	const int32 ScaledDamage = Damage.GetValueAtLevel(Level);
+	const float ScaledDamage = Damage.GetValueAtLevel(Level);
 	const float ManaCost = FMath::Abs(GetManaCost(Level));
 	const float Cooldown = GetCooldown(Level);
 	return FString::Printf(TEXT(
@@ -87,7 +87,7 @@ FString UElectrocute::GetNextLevelDescription(int32 Level)
 		"propagating to %d additional targets nearby, causing </>"
 
 		// Damage
-		"<Damage>%d</><Default> lightning damage with"
+		"<Damage>%2.f</><Default> lightning damage with"
 		" a chance to stun</>"),
 
 		// Values

@@ -24,8 +24,8 @@ void UAuraPassiveAbility::ReceiveDeactivate(const FGameplayTag& AbilityTag)
 	}
 }
 
-float UAuraPassiveAbility::GetPassiveValueAtLevel() const
+float UAuraPassiveAbility::GetPassiveValueAtLevel(int32 Level) const
 {
-	return PassiveValue.GetValueAtLevel(GetAbilityLevel());
+	return PassiveValue.GetValueAtLevel(Level);
 }
 

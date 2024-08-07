@@ -30,7 +30,7 @@ FString UAuraFireBolt::GetDescription(int32 Level)
 			"exploding on impact and dealing: </>"
 
 			//Damage
-			"<Damage>%d</><Default> fire damage with"
+			"<Damage>%1.f</><Default> fire damage with"
 
 			"a chance to burn</>\n\n"),
 
@@ -58,7 +58,7 @@ FString UAuraFireBolt::GetDescription(int32 Level)
 			"exploding on impact and dealing: </>"
 
 			//Damage
-			"<Damage>%d</><Default> fire damage with"
+			"<Damage>%1.f</><Default> fire damage with"
 
 			"a chance to burn</>\n\n"),
 
@@ -93,7 +93,7 @@ FString UAuraFireBolt::GetNextLevelDescription(int32 Level)
 		"exploding on impact and dealing: </>"
 
 		//Damage
-		"<Damage>%d</><Default> fire damage with"
+		"<Damage>%1.f</><Default> fire damage with"
 
 		"a chance to burn</>\n\n"),
 
