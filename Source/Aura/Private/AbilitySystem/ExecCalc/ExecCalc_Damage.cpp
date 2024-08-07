@@ -8,6 +8,7 @@
 #include "AbilitySystem/AuraAbilitySystemLibrary.h"
 #include "AbilitySystem/AuraAttributeSet.h"
 #include "AbilitySystem/AuraAbilitySystemComponent.h"
+#include "AbilitySystem/Abilities/AuraPassiveAbility.h"
 #include "AbilitySystem/Data/CharacterClassInfo.h"
 #include "Interaction/CombatInterface.h"
 #include "Kismet/GameplayStatics.h"
@@ -83,7 +84,7 @@ void UExecCalc_Damage::Execute_Implementation(const FGameplayEffectCustomExecuti
 	TagsToCaptureDefs.Add(Tags.Attributes_Resistance_Physical, DamageStatics().PhysicalResistanceDef);
 
 	const UAbilitySystemComponent* SourceASC = ExecutionParams.GetSourceAbilitySystemComponent();
-	const UAbilitySystemComponent* TargetASC = ExecutionParams.GetTargetAbilitySystemComponent();
+	UAbilitySystemComponent* TargetASC = ExecutionParams.GetTargetAbilitySystemComponent();
 
 	AActor* SourceAvatar = SourceASC ? SourceASC->GetAvatarActor() : nullptr;
 	AActor* TargetAvatar = TargetASC ? TargetASC->GetAvatarActor() : nullptr;
@@ -223,19 +224,23 @@ void UExecCalc_Damage::Execute_Implementation(const FGameplayEffectCustomExecuti
 	// Double damage plus a bonus if critical hit
 	Damage = bCriticalHit ? 2.f * Damage + SourceCriticalHitDamage : Damage;
 
-	// Passive Test
+	// Passive Spell Halo of Protection
 	if (UAuraAbilitySystemComponent* TargetAuraASC = Cast<UAuraAbilitySystemComponent>(TargetASC))
 	{
-		TargetAuraASC->GetSpecFromAbilityTag(FAuraGameplayTags::Get().Abilities_Passive_HaloOfProtection);
-	}
-	//
+		if (TargetASC->HasMatchingGameplayTag(FAuraGameplayTags::Get().Abilities_Passive_HaloOfProtection))
+		{
+			FGameplayAbilitySpec* TargetAbilitySpec = TargetAuraASC->GetSpecFromAbilityTag(FAuraGameplayTags::Get().Abilities_Passive_HaloOfProtection);
+			if (UAuraPassiveAbility* AuraPassiveAbility = Cast<UAuraPassiveAbility>(TargetAbilitySpec->Ability))
+			{
+				float AbilityLevel = AuraPassiveAbility->GetAbilityLevel();
+				float PassiveValue = AuraPassiveAbility->GetPassiveValueAtLevel();
 
+				Damage -= Damage * PassiveValue;
 
-	// Passive Spell Halo of Protection
-	if (TargetASC->HasMatchingGameplayTag(FAuraGameplayTags::Get().Abilities_Passive_HaloOfProtection))
-	{
-		Damage *= 0.8f;
+			}
+		}
 	}
+
 
 	const FGameplayModifierEvaluatedData EvaluatedData(UAuraAttributeSet::GetIncomingDamageAttribute(), EGameplayModOp::Additive, Damage);
 	OutExecutionOutput.AddOutputModifier(EvaluatedData);
