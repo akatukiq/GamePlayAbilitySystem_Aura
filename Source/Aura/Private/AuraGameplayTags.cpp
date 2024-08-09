@@ -86,6 +86,19 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 	);
 
 	/*
+* Vital
+*/
+	GameplayTags.Attributes_Vital_Health = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Attributes.Vital.Health"),
+		FString("Health")
+	);
+
+	GameplayTags.Attributes_Vital_Mana = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Attributes.Vital.Mana"),
+		FString("Mana")
+	);
+
+	/*
  * InputTags
  */
 

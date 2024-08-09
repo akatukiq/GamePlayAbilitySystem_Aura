@@ -165,6 +165,49 @@ void UAuraAttributeSet::SendXPEvent(const FEffectProperties& Props)
 	}
 }
 
+void UAuraAttributeSet::SendLifeSiphon(const FEffectProperties& Props, float SendDamageValue)
+{
+	if (UAuraAbilitySystemComponent* SourceAuraASC = Cast<UAuraAbilitySystemComponent>(Props.SourceASC))
+	{	
+		FGameplayAbilitySpec* AbilitySpec = SourceAuraASC->GetSpecFromAbilityTag(FAuraGameplayTags::Get().Abilities_Passive_LifeSiphon);
+
+		if (UAuraPassiveAbility* AuraPassiveAbility = Cast<UAuraPassiveAbility>(AbilitySpec->Ability))
+		{
+			int32 TargetAbilityLevel = AbilitySpec->Level;
+			float PassiveValue = AuraPassiveAbility->GetPassiveValueAtLevel(TargetAbilityLevel);
+			const float LifeSiphonValue = SendDamageValue * PassiveValue;
+
+			const FAuraGameplayTags& GameplayTags = FAuraGameplayTags::Get();
+			FGameplayEventData Payload;
+			Payload.EventTag = GameplayTags.Attributes_Vital_Health;
+			Payload.EventMagnitude = LifeSiphonValue;
+
+			UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(Props.SourceCharacter, GameplayTags.Attributes_Vital_Health, Payload);
+		}
+	}
+}
+
+void UAuraAttributeSet::SendManaSiphon(const FEffectProperties& Props, float SendDamageValue)
+{
+	if (UAuraAbilitySystemComponent* SourceAuraASC = Cast<UAuraAbilitySystemComponent>(Props.SourceASC))
+	{
+		FGameplayAbilitySpec* AbilitySpec = SourceAuraASC->GetSpecFromAbilityTag(FAuraGameplayTags::Get().Abilities_Passive_ManaSiphon);
+
+		if (UAuraPassiveAbility* AuraPassiveAbility = Cast<UAuraPassiveAbility>(AbilitySpec->Ability))
+		{
+			int32 TargetAbilityLevel = AbilitySpec->Level;
+			float PassiveValue = AuraPassiveAbility->GetPassiveValueAtLevel(TargetAbilityLevel);
+			const float ManaSiphonValue = SendDamageValue * PassiveValue;
+
+			const FAuraGameplayTags& GameplayTags = FAuraGameplayTags::Get();
+			FGameplayEventData Payload;
+			Payload.EventTag = GameplayTags.Attributes_Vital_Mana;
+			Payload.EventMagnitude = ManaSiphonValue;
+
+			UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(Props.SourceCharacter, GameplayTags.Attributes_Vital_Mana, Payload);
+		}
+	}
+}
 void UAuraAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
 {
 	Super::PostGameplayEffectExecute(Data);
@@ -239,18 +282,11 @@ void UAuraAttributeSet::HandleIncomingDamage(const FEffectProperties Props)
 		//Siphon
 		if (Props.SourceASC->HasMatchingGameplayTag(FAuraGameplayTags::Get().Abilities_Passive_LifeSiphon))
 		{
-			UAuraAbilitySystemComponent* SourceAuraASC = Cast<UAuraAbilitySystemComponent>(Props.SourceASC);
-			FGameplayAbilitySpec* AbilitySpec = SourceAuraASC->GetSpecFromAbilityTag(FAuraGameplayTags::Get().Abilities_Passive_LifeSiphon);
-
-			if (UAuraPassiveAbility* AuraPassiveAbility = Cast<UAuraPassiveAbility>(AbilitySpec->Ability))
-			{
-				int32 TargetAbilityLevel = AbilitySpec->Level;
-				float PassiveValue = AuraPassiveAbility->GetPassiveValueAtLevel(TargetAbilityLevel);
-
-				const float NewLifeSiphon = GetHealth() + LocalIncomingDamage;
-				SetHealth(FMath::Clamp(NewLifeSiphon, 0.f, GetMaxHealth()));
-
-			}
+			SendLifeSiphon(Props, LocalIncomingDamage);
+		}
+		if (Props.SourceASC->HasMatchingGameplayTag(FAuraGameplayTags::Get().Abilities_Passive_ManaSiphon))
+		{
+			SendManaSiphon(Props, LocalIncomingDamage);
 		}
 
 	}
