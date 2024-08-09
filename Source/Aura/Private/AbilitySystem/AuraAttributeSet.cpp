@@ -5,6 +5,8 @@
 
 #include "GameFramework/Character.h"
 #include "AbilitySystemComponent.h"
+#include "AbilitySystem/AuraAbilitySystemComponent.h"
+#include "AbilitySystem/Abilities/AuraPassiveAbility.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AuraAbilityTypes.h"
 #include "GameplayEffectExtension.h"
@@ -233,6 +235,24 @@ void UAuraAttributeSet::HandleIncomingDamage(const FEffectProperties Props)
 		{
 			Debuff(Props);
 		}
+
+		//Siphon
+		if (Props.SourceASC->HasMatchingGameplayTag(FAuraGameplayTags::Get().Abilities_Passive_LifeSiphon))
+		{
+			UAuraAbilitySystemComponent* SourceAuraASC = Cast<UAuraAbilitySystemComponent>(Props.SourceASC);
+			FGameplayAbilitySpec* AbilitySpec = SourceAuraASC->GetSpecFromAbilityTag(FAuraGameplayTags::Get().Abilities_Passive_LifeSiphon);
+
+			if (UAuraPassiveAbility* AuraPassiveAbility = Cast<UAuraPassiveAbility>(AbilitySpec->Ability))
+			{
+				int32 TargetAbilityLevel = AbilitySpec->Level;
+				float PassiveValue = AuraPassiveAbility->GetPassiveValueAtLevel(TargetAbilityLevel);
+
+				const float NewLifeSiphon = GetHealth() + LocalIncomingDamage;
+				SetHealth(FMath::Clamp(NewLifeSiphon, 0.f, GetMaxHealth()));
+
+			}
+		}
+
 	}
 
 }
